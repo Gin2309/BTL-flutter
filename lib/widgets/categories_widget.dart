@@ -1,5 +1,3 @@
-// ignore_for_file: file_names
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -21,7 +19,7 @@ class CategoriesWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Padding(
+        const Padding(
           padding: EdgeInsets.only(left: 10, right: 10, bottom: 10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -49,11 +47,11 @@ class CategoriesWidget extends StatelessWidget {
           future: fetchCategories(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             } else if (snapshot.hasError) {
               return Center(child: Text('Error: ${snapshot.error}'));
             } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-              return Center(child: Text('No categories found'));
+              return const Center(child: Text('No categories found'));
             } else {
               final categories = snapshot.data!;
               return SingleChildScrollView(
@@ -61,8 +59,9 @@ class CategoriesWidget extends StatelessWidget {
                 child: Row(
                   children: categories.map((category) {
                     return Container(
-                      margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                      padding: EdgeInsets.all(10),
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 5),
+                      padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
                         color: Colors.blue.shade100,
                         borderRadius: BorderRadius.circular(10),
@@ -77,7 +76,7 @@ class CategoriesWidget extends StatelessWidget {
                       child: Center(
                         child: Text(
                           category.toString(),
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
                           ),

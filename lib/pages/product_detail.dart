@@ -1,11 +1,13 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'CartProvider.dart';
+import 'package:btl/widgets/cart_provider.dart';
 
 class ProductDetail extends StatelessWidget {
   final dynamic product;
 
-  ProductDetail({required this.product});
+  const ProductDetail({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
@@ -27,10 +29,10 @@ class ProductDetail extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Expanded(
               child: Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.blueAccent,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(30),
@@ -38,39 +40,44 @@ class ProductDetail extends StatelessWidget {
                   ),
                 ),
                 child: Padding(
-                  padding: EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(30),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Flexible(
                         child: Text(
                           product['title'],
-                          style: TextStyle(
-                              fontSize: 26,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white),
+                          style: const TextStyle(
+                            fontSize: 26,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
-                      SizedBox(height: 8),
-                      Text(
+                      const SizedBox(height: 8),
+                      const Text(
                         'Mô tả:',
                         style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
                       ),
-                      SizedBox(height: 8),
+                      const SizedBox(height: 8),
                       Text(
                         product['description'],
-                        style: TextStyle(fontSize: 16, color: Colors.white),
+                        style: const TextStyle(
+                          fontSize: 16,
+                          color: Colors.white,
+                        ),
                       ),
-                      SizedBox(height: 16),
+                      const SizedBox(height: 16),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
                             '\$${product['price']}',
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 24,
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
@@ -80,8 +87,20 @@ class ProductDetail extends StatelessWidget {
                             onPressed: () {
                               Provider.of<CartProvider>(context, listen: false)
                                   .addItem(product);
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    '${product['title']} đã được thêm vào giỏ hàng!',
+                                  ),
+                                  duration: const Duration(seconds: 2),
+                                ),
+                              );
                             },
-                            child: Text('Thêm vào giỏ hàng'),
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.white,
+                              onPrimary: Colors.blueAccent,
+                            ),
+                            child: const Text('Thêm vào giỏ hàng'),
                           ),
                         ],
                       ),
